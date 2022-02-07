@@ -27,5 +27,9 @@ document.addEventListener('turbolinks:load', () => {
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
+  $(".file.video").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileTypes: ["video"] });
+  $(".file.document").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileExtensions: ["pdf", "txt", "doc", "docx"] });
+  $(".file.solution").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileExtensions: ["pdf", "txt", "doc", "docx", "png", "jpeg", "jpg"] });
+  $(".file.image").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileTypes: ["image"] });
   $(".file").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false });
 });

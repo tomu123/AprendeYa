@@ -1,6 +1,9 @@
 <h2>Change your password</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put },wrapper: :floating_labels_form,
+  wrapper_mappings: {
+    select:        :floating_labels_select
+  },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
   <%= f.error_notification %>
 
   <%= f.input :reset_password_token, as: :hidden %>
@@ -20,7 +23,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Change my password" %>
+    <%= f.button :submit, "Change my password", class:'btn btn-primary' %>
   </div>
 <% end %>
 

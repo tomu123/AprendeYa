@@ -1,6 +1,9 @@
 <h2>Resend confirmation instructions</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post },wrapper: :floating_labels_form,
+  wrapper_mappings: {
+    select:        :floating_labels_select
+  },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
   <%= f.error_notification %>
   <%= f.full_error :confirmation_token %>
 
@@ -13,7 +16,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
+    <%= f.button :submit, "Resend confirmation instructions" ,class:'btn btn-primary'%>
   </div>
 <% end %>
 
