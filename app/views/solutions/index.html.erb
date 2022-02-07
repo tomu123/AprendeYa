@@ -1,0 +1,16 @@
+<h1>Soluciones enviadas</h1>
+<% @solutions.each do |s| %>
+  <div class='solution-card container vh-20'>
+    <h3>
+      <%= s.activity.title %>
+    </h3>
+    <span>
+    <%= s.enrollment.user.full_name %>
+    <%= image_tag s.enrollment.user.avatar, class:'rounded-circle shadow vh-10 w-25' %>
+    </span>
+    <%= link_to 'Ver solución', solution_path(s), class:'btn btn-info' %>
+    <%# <p>
+     <%= s.score %>
+    <%# </p> %>
+  </div>
+<% end %>

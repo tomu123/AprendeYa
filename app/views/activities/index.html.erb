@@ -1,0 +1,44 @@
+<div class="dropdown">
+  <button class="dropbtn">Filtrar</button>
+  <div class="dropdown-content">
+    <input type="button" class="btn-finalizados" value="Finalizados">
+    <input type="button" class="btn-pendientes" value="Pendientes">
+    <input type="button" class="btn-todos" value="Todos">
+  </div>
+</div>
+<div class="div-finalizados">
+<h2>Ejercicios finalizados</h2>
+<% @units.each do |unit| %>
+  <% unit.activities.activity_type_ejercicio.each do |activity|%>
+      <% if activity.done == true %>
+        <ul>
+          <li> <%= link_to activity.title, activity_path(activity) %></li>
+        </ul>
+      <% end %>
+  <% end %>
+<% end %>
+</div>
+<div class="div-pendientes">
+<h2>Ejercicios pendientes</h2>
+<% @units.each do |unit| %>
+<h3><%= unit.title %></h3>
+  <% unit.activities.activity_type_ejercicio.each do |activity|%>
+      <% if activity.done == false%>
+        <ul>
+          <li> <%= link_to activity.title, activity_path(activity) %></li>
+        </ul>
+      <% end %>
+  <% end %>
+<% end %>
+</div>
+<div class="div-todos">
+<h2>Todos los Ejercicios</h2>
+<% @units.each do |unit| %>
+<h3><%= unit.title %></h3>
+  <% unit.activities.activity_type_ejercicio.each do |activity|%>
+        <ul>
+          <li> <%= link_to activity.title, activity_path(activity) %></li>
+        </ul>
+  <% end %>
+<% end %>
+</div>

@@ -1,21 +1,28 @@
+<!-- app/views/layouts/application.html.erb-->
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AprendeYa</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Bootstraper</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <!-- This refers to app/javascript/stylesheets/application.scss-->
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
 
-    <%= yield %>
+
+    <div class="container"><%= yield %></div>
+
+    <%= link_to 'Back',:back, class:'btn btn-primary' %>
+    <%= render 'shared/footer' %>
   </body>
 </html>

@@ -1,0 +1,14 @@
+<h1>Curso: <%= @course.name %></h1>
+<div class="container units">
+  <h2>Unidades:</h2>
+  <% @course.units.each do |u| %>
+    <div class='unit-card'>
+    <%= link_to_unless Enrollment.find_by(course: @course,user:current_user).nil?, raw("<h3>#{u.title}</h3>"),u %>
+    <%= image_tag u.unit_img %>
+    </div>
+  <% end %>
+</div>
+<% if Enrollment.find_by(course: @course,user:current_user).nil? %>
+  <%# <%= link_to 'Matriculate',course_enrollments_path(params[:id]),method: :post%>
+  <%= button_to 'Matriculate', course_enrollments_path(params[:id]),method: :post %>
+<% end %>

@@ -1,30 +1,31 @@
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
+// app/javascript/packs/application.js
 
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-import "channels"
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
+import * as bootstrap from 'bootstrap';
+import '@fortawesome/fontawesome-free/js/all'
+import "../../assets/stylesheets/application"
+import 'bootstrap-fileinput'
+import 'bootstrap-fileinput/themes/fas/theme'
 
+var jQuery = require('jquery')
 
-// ----------------------------------------------------
-// Note(lewagon): ABOVE IS RAILS DEFAULT CONFIGURATION
-// WRITE YOUR OWN JS STARTING FROM HERE 👇
-// ----------------------------------------------------
-
-// External imports
-import "bootstrap";
-
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
+// include jQuery in global and window scope (so you can access it globally)
+// in your web browser, when you type $('.div'), it is actually refering to global.$('.div')
+global.$ = global.jQuery = jQuery;
+window.$ = window.jQuery = jQuery;
 
 document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
-  // initSelect2();
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  })
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+  $(".file").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false });
 });

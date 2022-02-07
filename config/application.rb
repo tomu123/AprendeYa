@@ -23,5 +23,9 @@ module AprendeYa
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Creates a database schema file (either db/schema.rb or db/structure.sql, depending on `config.active_record.schema_format`)
+    # Loads a database schema file (either db/schema.rb or db/structure.sql, depending on `config.active_record.schema_format`) into the database
+    config.active_record.schema_format = :sql
   end
 end

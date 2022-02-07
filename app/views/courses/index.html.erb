@@ -1,0 +1,10 @@
+<div class="container">
+  <% @courses.each do |c| %>
+    <div class='course-card'>
+    <%= link_to c do %>
+      <h3><%= c.name %></h3>
+    <% end %>
+    <%= image_tag c.course_img %>
+    </div>
+  <% end %>
+</div>

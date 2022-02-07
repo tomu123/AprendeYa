@@ -1,0 +1,5 @@
+<h2><%= @unit.title %></h2>
+<p><%= @unit.description %></p>
+<button><%= link_to "Clases", get_by_type_unit_activities_path(@unit, "clase") %></button>
+<button><%= link_to "Ejercicios", get_by_type_unit_activities_path(@unit, "ejercicio") %></button>
+<button><%= link_to "Recursos", get_by_type_unit_activities_path(@unit, "recurso") %></button>

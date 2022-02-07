@@ -1,0 +1,21 @@
+<% if @activity.activity_type_ejercicio? %>
+  <% if @activity.done == false %>
+    <p><i class="fas fa-circle" style="color:red"></i> Pendiente</p>
+  <% else %>
+    <p><i class="fas fa-check" style="color:green"></i></i> Hecho</p>
+  <% end %>
+<% end %>
+<h2><%= @activity.title %></h2>
+<p><%= @activity.description %></p>
+<% if @activity.activity_type_ejercicio? %>
+  <%= link_to @activity.file do%>
+    <%= image_tag @activity.file.preview(resize_to_limit: [450, 450]) %>
+  <% end %>
+<% elsif @activity.activity_type_clase? %>
+  <video controls width="450">
+    <source src="<%= url_for(@activity.file) %>"
+            type="video/mp4">
+
+    Sorry, your browser doesn't support embedded videos.
+  </video>
+<% end %>

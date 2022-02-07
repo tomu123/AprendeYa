@@ -5,8 +5,8 @@
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import "bootstrap-fileinput/css/fileinput.min";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
 
 // Your CSS partials
 @import "components/index";
