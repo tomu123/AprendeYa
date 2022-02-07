@@ -1,10 +1,12 @@
 <div class="dropdown">
-  <button class="dropbtn">Filtrar</button>
-  <div class="dropdown-content">
-    <input type="button" class="btn-finalizados" value="Finalizados">
-    <input type="button" class="btn-pendientes" value="Pendientes">
-    <input type="button" class="btn-todos" value="Todos">
-  </div>
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Filtrar
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><input type="button" class="dropdown-item btn-finalizados" value="Finalizados"></li>
+    <li><input type="button" class="dropdown-item btn-pendientes" value="Pendientes"></li>
+    <li><input type="button" class="dropdown-item btn-todos" value="Todos"></li>
+  </ul>
 </div>
 <div class="div-finalizados">
 <h2>Ejercicios finalizados</h2>

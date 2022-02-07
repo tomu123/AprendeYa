@@ -18,6 +18,9 @@ var jQuery = require('jquery')
 global.$ = global.jQuery = jQuery;
 window.$ = window.jQuery = jQuery;
 
+//Custom JS
+import { activities_index_init } from "../activities/index";
+
 document.addEventListener('turbolinks:load', () => {
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
@@ -32,4 +35,5 @@ document.addEventListener('turbolinks:load', () => {
   $(".file.solution").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileExtensions: ["pdf", "txt", "doc", "docx", "png", "jpeg", "jpg"] });
   $(".file.image").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileTypes: ["image"] });
   $(".file").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false });
+  activities_index_init();
 });
