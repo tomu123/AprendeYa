@@ -1,8 +1,7 @@
 class SolutionsController < ApplicationController
-  before_action :set_solution, only: [:update, :show, :edit_grade, :submit_grade]
+  before_action :set_solution, only: %i[update show]
   def index
-    @solutions = Solution.all
-    # redirect_to courses_path if !current_user.teacher
+    @courses = Course.all
   end
 
   def show
@@ -18,18 +17,15 @@ class SolutionsController < ApplicationController
     redirect_to activity_path(@activity)
   end
 
-  def edit_grade
-  end
-
-  def submit_grade
+  def update
     @solution.update(solution_params)
-    redirect_to activity_path(@solution.activity)
+    redirect_to solutions_path
   end
 
   private
 
   def solution_params
-    params.require(:solutions).permit(:score, :file, :comment)
+    params.require(:solution).permit(:score, :file, :comment)
   end
 
   def set_solution

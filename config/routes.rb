@@ -22,10 +22,5 @@ Rails.application.routes.draw do
   resources :activities, except: [:new, :create] do
     resources :solutions, only: :create
   end
-  resources :solutions, only: [:index, :show] do
-    member do
-      get 'edit_grade'
-      post 'submit_grade'
-    end
-  end
+  resources :solutions, only: [:index, :show, :update]
 end

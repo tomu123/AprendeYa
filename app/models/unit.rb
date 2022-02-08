@@ -4,4 +4,5 @@ class Unit < ApplicationRecord
   has_many :activities
   validates :title, presence: true
   validates :description, presence: true
+  has_many :solutions, through: :activities
 end
