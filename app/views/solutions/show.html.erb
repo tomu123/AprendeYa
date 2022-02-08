@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+<h2>Detalles de la solución</h2>
+<% if current_user.teacher == true %>
+  <h1>hola teacher</h1>
+<% else %>
+  <h1>hola estudiante</h1>
+<% end %>
+<%= simple_form_for @activity.solution do |f| %>
+<%= f.input :score %>
+<%= f.input :comment %>
+=======
 <h2>Detalles de la actividad</h2>
 <h3>Alumno: <%= @solution.enrollment.user.full_name %></h3>
 <div class="d-flex flex-row m-3">
@@ -77,3 +88,4 @@
   </div>
 </div>
 <%= link_to 'Back to Solutions', solutions_path , class:'btn btn-primary' %>
+>>>>>>> 18cea82ef604c8b3dcd91902a81564bd4f08cb4e
