@@ -1,33 +1,19 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class = "navbar-brand">
-    <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/d/df/PCM-Educaci%C3%B3n.png", style: "width: 150px" %>
-  </div>
-    <%= image_tag "https://i.ibb.co/25FBdMM/logo-aprende-ya.png", style: "width: 150px", class: "navbar-brand"%>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <%= image_tag "https://i.ibb.co/25FBdMM/logo-aprende-ya.png", style: "width: 7vw", class: "navbar-brand"%>
+    </a>
 
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", root_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Mis cursos", courses_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
-        </li>
-        <li class="nav-item dropdown">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-        </li>
-      <% else %>
-        <li class="btn-register btn-sm active">
-          <%= link_to "Regístrate", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><%= link_to "Home", root_path, class: "nav-link px-2 link-secondary" %></li>
+      <li><%= link_to "Cursos", courses_path, class: "nav-link px-2 link-dark" %></li>
+      <li><%= link_to "Soluciones", solutions_path, class: "nav-link px-2 link-dark" %></li>
+      <li><a href="#" class="nav-link px-2 link-dark">Notas</a></li>
     </ul>
-  </div>
+
+    <div class="col-md-3 text-end">
+      <%= link_to "Inicia aquí", user_session_path, class: "btn btn-primary" %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary me-2" %>
+    </div>
+  </header>
 </div>
