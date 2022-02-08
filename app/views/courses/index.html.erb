@@ -1,10 +1,20 @@
 <div class="container">
   <% @courses.each do |c| %>
-    <div class='course-card'>
-    <%= link_to c do %>
-      <h3><%= c.name %></h3>
-    <% end %>
-    <%= image_tag c.course_img %>
-    </div>
+    <a href="<%= url_for(c) %>" style="text-decoration: none;color: white">
+      <div class="course card my-3 bg-info">
+        <div class="card-header">
+          <h3><%= image_tag c.course_img , class:'shadow avatar-medium ms-5 me-3'%><%= c.name %></h3>
+        </div>
+        <div class="card-body">
+          <h4 class="ms-5">Actividades:</h4>
+          <p class="text-center">Clases: <%= c.activities.activity_type_clase.count %></p>
+          <p class="text-center">Ejercicios: <%= c.activities.activity_type_ejercicio.count %></p>
+          <p class="text-center">Recursos: <%= c.activities.activity_type_recurso.count %></p>
+        </div>
+        <div class="card-footer">
+          <p class="text-center"><%= ejercicios_pendientes = c.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+        </div>
+      </div>
+    </a>
   <% end %>
 </div>

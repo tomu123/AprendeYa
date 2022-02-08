@@ -1,20 +1,41 @@
 .avatar {
-  width: 40px;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-radius: 50%;
+}
+.avatar-medium {
+  width: 3.5vw;
+  height: 3.5vw;
   border-radius: 50%;
 }
 .avatar-large {
-  width: 56px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
 }
 .avatar-bordered {
-  width: 40px;
+  width: 2.5vw;
+  height: 2.5vw;
   border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   border: white 1px solid;
 }
 .avatar-square {
-  width: 40px;
+  width: 2.5vw;
+  height: 2.5vw;
   border-radius: 0px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   border: white 1px solid;
+}
+.icon {
+  width: 2.5vw;
+  height: 2.5vw;
+}
+.icon-medium {
+  width: 3.5vw;
+  height: 3.5vw;
+}
+.icon-large {
+  width: 4.5vw;
+  height: 4.5vw;
 }
