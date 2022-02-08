@@ -54,7 +54,7 @@
       animation: 20s slides-set-2 -0.1s infinite;
     }
     .slide3 {
-      background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1594643781026-abcb610d394f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80);
+      background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80);
       animation: 20s slides-set-3 -0.1s infinite;
     }
 
@@ -119,7 +119,7 @@
       animation: 20s slides-set-2 -0.2s infinite;
     }
     .slide3 {
-      background-image: linear-gradient(to bottom, rgba(200,200,75,0.25) 0, rgba(200,75,75,0.5) 100%), url(https://images.unsplash.com/photo-1594643781026-abcb610d394f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80);
+      background-image: linear-gradient(to bottom, rgba(200,200,75,0.25) 0, rgba(200,75,75,0.5) 100%), url(https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80);
       // background-image: url(../img/slideshow/hero-3.jpg);
       animation: 20s slides-set-3 -0.2s infinite;
     }
@@ -300,6 +300,9 @@
 
 .advantages {
   margin: 100px 0;
+  h3{
+    margin-bottom: 35px;
+  }
   .advantage{
     .icon-learning {
       font-size: 130px;
@@ -336,6 +339,10 @@
         background: $color_fourth;
       }
     }
+    p{
+      font-size: 18px;
+      margin-top: 15px;
+    }
   }
 }
 
@@ -352,8 +359,9 @@
     flex-direction: column;
     justify-content: center;
     p{
-      color: #fff;
+      font-weight: lighter;
       text-align: justify;
+      font-size: 18px;
     }
   }
   .images-about{
@@ -372,11 +380,13 @@
   }
 }
 /*about end*/
+
 /*Reviews*/
-
-
 .container-reviews {
-
+  h3{
+    margin-bottom: 25px;
+  }
+  margin-bottom: 50px;
   z-index: -1;
   .container {
 
@@ -384,7 +394,7 @@
   }
 }
 .container-review {
-  background: #ab12d672;
+  background: #ffaa0059;
   border-radius: 7px;
   margin: 10px;
   width: 320px;
@@ -404,13 +414,13 @@
       width: 100%;
       height: 3px;
       margin: 0px;
-      background: #c800ff;
+      background: #FFA800;
     }
     p{
       margin-top: 10px;
       .fa-quote-left {
         font-size: 35px;
-        color: $color_logo;
+        color: $color_third;
       }
     }
   }
