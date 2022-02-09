@@ -29,12 +29,12 @@ Unit.all.each do |u|
 end
 Unit.destroy_all
 course = Course.find_by(name: 'Matemáticas')
-title = 'Estadistica: Interpretacion y Analisis de Patrones y Probabilidades'
-description = 'Descubriremos que son los patrones y las probabilidades, ademas analizaremos e interpretaremos patrones y probabilidades en distintas situaciones de nuestra vida cotidiana utilizando la moda y otros conceptos de estadistica'
+title = 'Estadística: Interpretación y Análisis de Patrones y Probabilidades'
+description = 'Descubriremos que son los patrones y las probabilidades, además analizaremos e interpretaremos patrones y probabilidades en distintas situaciones de nuestra vida cotidiana utilizando la moda y otros conceptos de estadística'
 unit = Unit.create(title: title,description: description,course: course)
 unit.unit_img.attach(io: File.open('./ImagesAprendeYa/statistics.png'), filename: 'unit_img_estadistica.png')
 title = 'Fracciones: Partes iguales de un todo'
-description = 'Descubriremos que son las fracciones y que podemos hacer con ellas, a traves del estudio de proporciones y reparticion de partes de un todo en distintas situaciones de nuestra vida cotidiana'
+description = 'Descubriremos que son las fracciones y que podemos hacer con ellas, a través del estudio de proporciones y repartición de partes de un todo en distintas situaciones de nuestra vida cotidiana'
 unit = Unit.create(title: title,description: description,course: course)
 unit.unit_img.attach(io: File.open('./ImagesAprendeYa/fraction.png'), filename: 'unit_img_fracciones.png')
 
@@ -45,7 +45,7 @@ end
 Activity.destroy_all
 
 # Ejercicios
-unit = Unit.find_by(title: 'Estadistica: Interpretacion y Analisis de Patrones y Probabilidades')
+unit = Unit.find_by(title: 'Estadística: Interpretación y Análisis de Patrones y Probabilidades')
 title = 'Lanza un dado y adivina cada vez'
 description = 'Aprenderás a organizar en una tabla de frecuencia y a representar en un gráfico de barras los resultados que obtengas al lanzar un dado.'
 activity = Activity.create(title: title,description: description,unit: unit,activity_type: 'ejercicio')
@@ -56,7 +56,7 @@ activity = Activity.create(title: title,description: description,unit: unit,acti
 activity.file.attach(io: File.open('./DocsAprendeYa/ejercicio_Juego_Predice_pinta_y_gana.pdf'), filename: 'ejercicio_Juego_Predice_pinta_y_gana.pdf')
 
 # Clases
-unit = Unit.find_by(title: 'Estadistica: Interpretacion y Analisis de Patrones y Probabilidades')
+unit = Unit.find_by(title: 'Estadística: Interpretación y Análisis de Patrones y Probabilidades')
 title = 'La Moda'
 description = 'Aprenderás que en la estadística, la moda es el valor que aparece con mayor frecuencia en un conjunto de datos.'
 activity = Activity.create(title: title,description: description,unit: unit,activity_type: 'clase')
