@@ -28,6 +28,9 @@ gem 'image_processing', '~> 1.2'
 # Use Amazon S3 cloud storage service for Active Storage
 # gem "aws-sdk-s3", require: false
 
+# Use Cloudinary cloud storage service for Active Storage
+gem "cloudinary"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
