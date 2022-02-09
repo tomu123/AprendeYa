@@ -1,6 +1,8 @@
 class EnrollmentsController < ApplicationController
   def index
     @enrollments = Enrollment.all
+    @solutions = Solution.all
+    @users = User.all
   end
 
   def create
