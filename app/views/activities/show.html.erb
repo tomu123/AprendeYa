@@ -109,7 +109,7 @@
                     <iframe
                     class="w-100"
                     style="height:60vh;"
-                    src=<%= url_for(@solution.file) %>></iframe>
+                    src=<%= cloudinary_url(@solution.file.key, :format => "pdf") %>></iframe>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
