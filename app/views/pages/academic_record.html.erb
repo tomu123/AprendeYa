@@ -1,0 +1,45 @@
+<div class="container pt-3">
+  <div class="card bg-danger my-4">
+    <div class="card-header">
+      <h1 class="text-light text-center">Historial Académico</h1>
+    </div>
+  </div>
+  <% if current_user.teacher == false %>
+    <% @enrollments.each do |e| %>
+      <div class="course card my-3 bg-info text-light">
+        <div class="card-header">
+          <h3><%= image_tag e.course.course_img , class:'shadow avatar-medium ms-5 me-3'%><%= e.course.name %></h3>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-evenly">
+           <% e.solutions.each do |solution|  %>
+             <span class="text-center fs-5"><%= solution.activity.title %></span>
+             <span class="text-center fs-5"><%= solution.score %></span>
+           <% end %>
+          </div>
+        </div>
+    <% end %>
+  <% else %>
+    <% @users.each do |user| %>
+      <% if user.teacher == false %>
+        <div class="course card my-3 bg-info text-light">
+          <div class="card-header">
+            <%= image_tag user.avatar , class:"avatar" %>
+            <span><%= user.first_name + ' ' + user.last_name%></span>
+          </div>
+          <div class="card-body">
+            <% user.enrollments.each do |enrollment| %>
+                <h2 class="ms-3"><%= enrollment.course.name %></h2>
+                <div class="d-flex justify-content-evenly">
+                  <% enrollment.solutions.each do |solution|  %>
+                    <span class="text-center fs-5"><%= solution.activity.title %></span>
+                    <span class="text-center fs-5"><%= solution.score %></span>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
