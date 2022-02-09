@@ -30,10 +30,10 @@ document.addEventListener('turbolinks:load', () => {
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
-  $(".file.video").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileTypes: ["video"] });
-  $(".file.document").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileExtensions: ["pdf", "txt", "doc", "docx"] });
-  $(".file.solution").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileExtensions: ["pdf", "txt", "doc", "docx", "png", "jpeg", "jpg"] });
-  $(".file.image").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false, allowedFileTypes: ["image"] });
+  $(".file.video").attr("accept", "video/*");
+  $(".file.document").attr("accept", ".pdf, .txt, .doc, .docx");
+  $(".file.solution").attr("accept", ".pdf, .txt, .doc, .docx, image/*");
+  $(".file.image").attr("accept", "image/*");
   $(".file").fileinput({ theme: "fas", showCaption: false, dropZoneEnabled: false });
   activities_index_init();
 });

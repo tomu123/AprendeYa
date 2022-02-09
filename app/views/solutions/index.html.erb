@@ -16,7 +16,7 @@
             <h3 class="my-4"><%= image_tag u.unit_img, class:'icon me-3'%><%= u.title %></h3>
             <small class="text-light"><%= u.solutions.where(score:nil).count %> soluciones por revisar</small>
           </button>
-          <div class="collapse" id="unit_<%= u.id %>">
+          <div class="collapse w-75" id="unit_<%= u.id %>">
             <div class="activity container d-flex flex-column align-items-center my-3" >
               <% u.activities.activity_type_ejercicio.each do |a| %>
                 <button class="btn btn-info w-100 border-light text-light" type="button" data-bs-toggle="collapse" data-bs-target="#activity_<%= a.id %>" aria-expanded="false" aria-controls="activity_<%= a.id %>">
@@ -26,10 +26,10 @@
                 <div class="collapse" id="activity_<%= a.id %>">
                   <div class="solution container d-flex flex-column align-items-center my-3" >
                     <% a.solutions.order("score DESC NULLS FIRST").each do |s|%>
-                      <a href="<%= url_for(s) %>" style="text-decoration: none;color: white">
+                      <a href="<%= url_for(s) %>" style="text-decoration: none;color: white" class="w-100">
                         <div class="solution card my-3 <%= s.score.nil? ? 'bg-danger' : 'bg-success'%>">
                           <div class="card-header">
-                            <h5><%= s.enrollment.user.full_name %><%= image_tag s.enrollment.user.avatar, class:'shadow avatar-medium ms-5' %></h5>
+                            <h5 class="d-flex justify-content-around align-items-center"><%= s.enrollment.user.full_name %><%= image_tag s.enrollment.user.avatar, class:'shadow avatar-medium ms-5' %></h5>
                           </div>
                           <div class="card-body">
                             <% if s.score.nil? %>

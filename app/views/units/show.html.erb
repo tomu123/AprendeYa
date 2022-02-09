@@ -26,7 +26,7 @@
             <div class="card-body">
               <h4 class="text-center card-text">Ejercicios</h4>
             </div>
-            <% ejercicios_pendientes = @unit.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %>
+            <% ejercicios_pendientes = @unit.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{user: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %>
             <% if ejercicios_pendientes > 0%>
               <div class="card-footer bg-danger">
                 <p class="text-center"><%= ejercicios_pendientes %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>

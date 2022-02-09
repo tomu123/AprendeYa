@@ -13,7 +13,7 @@
   <h2>Ejercicios finalizados</h2>
   <% @units.each do |unit| %>
     <% unit.activities.activity_type_ejercicio.each do |activity|%>
-        <% if activity.done == true %>
+        <% if activity.solution.nil? == true %>
           <ul>
             <li> <%= link_to activity.title, activity_path(activity) %></li>
           </ul>
@@ -26,7 +26,7 @@
   <% @units.each do |unit| %>
   <h3><%= unit.title %></h3>
     <% unit.activities.activity_type_ejercicio.each do |activity|%>
-        <% if activity.done == false%>
+        <% if activity.solution.nil? == false%>
           <ul>
             <li> <%= link_to activity.title, activity_path(activity) %></li>
           </ul>

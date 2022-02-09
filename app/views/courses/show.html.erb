@@ -8,24 +8,28 @@
 
     <div class="container">
       <% @course.units.each do |u| %>
-        <a href="<%= url_for(u) %>" style="text-decoration: none;color: black">
-          <div class="unit card my-3 bg-warning">
-            <div class="card-header">
-              <h3><%= image_tag u.unit_img , class:'shadow avatar-medium ms-5 me-3'%><%= u.title %></h3>
-            </div>
-            <div class="card-body">
-              <h4 class="ms-5">Actividades:</h4>
-              <div class="d-flex justify-content-evenly">
-                <p class="text-center fs-4">Clases: <%= u.activities.activity_type_clase.count %></p>
-                <p class="text-center fs-4">Ejercicios: <%= u.activities.activity_type_ejercicio.count %></p>
-                <p class="text-center fs-4">Recursos: <%= u.activities.activity_type_recurso.count %></p>
+        <% unless Enrollment.find_by(course: @course,user:current_user).nil? %>
+          <a href="<%= url_for(u) %>" style="text-decoration: none;color: black">
+        <% end %>
+            <div class="unit card my-3 bg-warning">
+              <div class="card-header">
+                <h3><%= image_tag u.unit_img , class:'shadow avatar-medium ms-5 me-3'%><%= u.title %></h3>
+              </div>
+              <div class="card-body">
+                <h4 class="ms-5">Actividades:</h4>
+                <div class="d-flex justify-content-evenly">
+                  <p class="text-center fs-4">Clases: <%= u.activities.activity_type_clase.count %></p>
+                  <p class="text-center fs-4">Ejercicios: <%= u.activities.activity_type_ejercicio.count %></p>
+                  <p class="text-center fs-4">Recursos: <%= u.activities.activity_type_recurso.count %></p>
+                </div>
+              </div>
+              <div class="card-footer">
+                <p class="text-center fs-6"><%= ejercicios_pendientes = u.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{user: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
               </div>
             </div>
-            <div class="card-footer">
-              <p class="text-center fs-6"><%= ejercicios_pendientes = u.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
-            </div>
-          </div>
-        </a>
+        <% if Enrollment.find_by(course: @course,user:current_user).nil? %>
+          </a>
+        <% end %>
       <% end %>
     </div>
   </div>
