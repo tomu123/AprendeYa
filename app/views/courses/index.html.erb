@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-3">
   <% @courses.each do |c| %>
     <a href="<%= url_for(c) %>" style="text-decoration: none;color: white">
       <div class="course card my-3 bg-info">
@@ -7,12 +7,14 @@
         </div>
         <div class="card-body">
           <h4 class="ms-5">Actividades:</h4>
-          <p class="text-center">Clases: <%= c.activities.activity_type_clase.count %></p>
-          <p class="text-center">Ejercicios: <%= c.activities.activity_type_ejercicio.count %></p>
-          <p class="text-center">Recursos: <%= c.activities.activity_type_recurso.count %></p>
+          <div class="d-flex justify-content-evenly">
+            <p class="text-center fs-4">Clases: <%= c.activities.activity_type_clase.count %></p>
+            <p class="text-center fs-4">Ejercicios: <%= c.activities.activity_type_ejercicio.count %></p>
+            <p class="text-center fs-4">Recursos: <%= c.activities.activity_type_recurso.count %></p>
+          </div>
         </div>
         <div class="card-footer">
-          <p class="text-center"><%= ejercicios_pendientes = c.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+          <p class="text-center fs-6"><%= ejercicios_pendientes = c.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{user: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
         </div>
       </div>
     </a>

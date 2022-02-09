@@ -132,7 +132,7 @@ CREATE TABLE public.activities (
     title character varying NOT NULL,
     description text NOT NULL,
     unit_id bigint NOT NULL,
-    done boolean DEFAULT false,
+    solution.nil? boolean DEFAULT false,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     activity_type public.activity_type
@@ -669,5 +669,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220207071705'),
 ('20220207071818'),
 ('20220207071949');
-
-

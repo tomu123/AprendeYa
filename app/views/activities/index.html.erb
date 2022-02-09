@@ -1,46 +1,48 @@
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Filtrar
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><input type="button" class="dropdown-item btn-finalizados" value="Finalizados"></li>
-    <li><input type="button" class="dropdown-item btn-pendientes" value="Pendientes"></li>
-    <li><input type="button" class="dropdown-item btn-todos" value="Todos"></li>
-  </ul>
-</div>
-<div class="div-finalizados">
-<h2>Ejercicios finalizados</h2>
-<% @units.each do |unit| %>
-  <% unit.activities.activity_type_ejercicio.each do |activity|%>
-      <% if activity.done == true %>
-        <ul>
-          <li> <%= link_to activity.title, activity_path(activity) %></li>
-        </ul>
-      <% end %>
+<div class="container">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      Filtrar
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><input type="button" class="dropdown-item btn-finalizados" value="Finalizados"></li>
+      <li><input type="button" class="dropdown-item btn-pendientes" value="Pendientes"></li>
+      <li><input type="button" class="dropdown-item btn-todos" value="Todos"></li>
+    </ul>
+  </div>
+  <div class="div-finalizados">
+  <h2>Ejercicios finalizados</h2>
+  <% @units.each do |unit| %>
+    <% unit.activities.activity_type_ejercicio.each do |activity|%>
+        <% if activity.solution.nil? == true %>
+          <ul>
+            <li> <%= link_to activity.title, activity_path(activity) %></li>
+          </ul>
+        <% end %>
+    <% end %>
   <% end %>
-<% end %>
-</div>
-<div class="div-pendientes">
-<h2>Ejercicios pendientes</h2>
-<% @units.each do |unit| %>
-<h3><%= unit.title %></h3>
-  <% unit.activities.activity_type_ejercicio.each do |activity|%>
-      <% if activity.done == false%>
-        <ul>
-          <li> <%= link_to activity.title, activity_path(activity) %></li>
-        </ul>
-      <% end %>
+  </div>
+  <div class="div-pendientes">
+  <h2>Ejercicios pendientes</h2>
+  <% @units.each do |unit| %>
+  <h3><%= unit.title %></h3>
+    <% unit.activities.activity_type_ejercicio.each do |activity|%>
+        <% if activity.solution.nil? == false%>
+          <ul>
+            <li> <%= link_to activity.title, activity_path(activity) %></li>
+          </ul>
+        <% end %>
+    <% end %>
   <% end %>
-<% end %>
-</div>
-<div class="div-todos">
-<h2>Todos los Ejercicios</h2>
-<% @units.each do |unit| %>
-<h3><%= unit.title %></h3>
-  <% unit.activities.activity_type_ejercicio.each do |activity|%>
-        <ul>
-          <li> <%= link_to activity.title, activity_path(activity) %></li>
-        </ul>
+  </div>
+  <div class="div-todos">
+  <h2>Todos los Ejercicios</h2>
+  <% @units.each do |unit| %>
+  <h3><%= unit.title %></h3>
+    <% unit.activities.activity_type_ejercicio.each do |activity|%>
+          <ul>
+            <li> <%= link_to activity.title, activity_path(activity) %></li>
+          </ul>
+    <% end %>
   <% end %>
-<% end %>
+  </div>
 </div>

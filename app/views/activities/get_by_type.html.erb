@@ -1,18 +1,26 @@
-<h1><%= params[:type].capitalize %>s:</h1>
-<div class="container activities">
+<div class="container">
+  <h1 class="my-4"><%= params[:type].capitalize %>s:</h1>
+  <div class="container activities grid">
     <% @activities.each do |a| %>
-      <div class='activity-card'>
-        <% if a.activity_type_ejercicio? %>
-          <% if a.done == false %>
-            <p><i class="fas fa-circle" style="color:red"></i> Pendiente</p>
-          <% else %>
-            <p><i class="fas fa-check" style="color:green"></i></i> Hecho</p>
-          <% end %>
+      <div class="g-col-4">
+        <%= link_to a, style:"text-decoration: none;color: white" do %>
+          <div class="course card bg-info d-flex h-100">
+            <div class="card-header flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+              <% if a.activity_type_ejercicio? %>
+                <% if a.solutions.joins(:enrollment).find_by(enrollment: { user: current_user }).nil? %>
+                  <span><i class="fas fa-circle" style="color:red"></i> Pendiente</span>
+                <% else %>
+                  <span><i class="fas fa-check" style="color:green"></i> Hecho</span>
+                <% end %>
+              <% end %>
+              <h3 class="text-center"><%= a.title %></h3>
+            </div>
+            <div class="card-body text-center flex-grow-0" style="height:min-content;">
+              <%= image_tag a.file.preview(resize_to_limit: [250, 250]) %>
+            </div>
+          </div>
         <% end %>
-        <%= link_to a do %>
-          <h3><%= a.title %></h3>
-        <% end %>
-        <%= image_tag a.file.preview(resize_to_limit: [250, 250]) %>
       </div>
     <% end %>
+  </div>
 </div>

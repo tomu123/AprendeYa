@@ -8,12 +8,28 @@
       <li><%= link_to "Home", root_path, class: "nav-link px-2 link-secondary" %></li>
       <li><%= link_to "Cursos", courses_path, class: "nav-link px-2 link-secondary" %></li>
       <li><%= link_to "Soluciones", solutions_path, class: "nav-link px-2 link-secondary" %></li>
-      <li><a href="#" class="nav-link px-2 link-secondary">Notas</a></li>
     </ul>
-
     <div class="col-md-3 text-end">
-      <%= link_to "Inicia aquí", user_session_path, class: "btn btn-primary" %>
-      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary me-2" %>
+      <% if user_signed_in? %>
+        <div class="flex-shrink-0 dropdown">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar , class:"avatar" %>
+            <% else %>
+              <i class="fa-solid fa-user-astronaut" class=" avatar"></i>
+            <% end %>
+          </a>
+          <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2" style="">
+            <li><%= link_to "Historial Academico", academic_record_path, class:"dropdown-item"%></li>
+            <li><%= link_to "Editar Usuario", edit_user_registration_path, class:"dropdown-item"%></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link_to "Salir", destroy_user_session_path, method: :delete ,class:"dropdown-item"%></li>
+          </ul>
+        </div>
+      <% else %>
+        <%= link_to "Inicia aquí", user_session_path, class: "btn btn-primary" %>
+        <%= link_to "Registrate", new_user_registration_path, class: "btn btn-outline-primary me-2" %>
+      <% end %>
     </div>
   </header>
 </div>

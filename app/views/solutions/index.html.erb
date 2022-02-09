@@ -1,77 +1,57 @@
-<<<<<<< HEAD
-<h1>Soluciones enviadas</h1>
-<% if current_user.teacher == true %>
-  <h1>hola teacher</h1>
-<% else %>
-  <h1>hola estudiante</h1>
-<% end %>
-<% @solutions.each do |s| %>
-  <div class='solution-card container vh-20'>
-    <h3>
-      <%= s.activity.title %>
-    </h3>
-    <span>
-    <%= s.enrollment.user.full_name %>
-    <%= image_tag s.enrollment.user.avatar, class:'rounded-circle shadow vh-10 w-25' %>
-    </span>
-    <%= link_to 'Ver solución', solution_path(s), class:'btn btn-info' %>
-    <%# <p>
-     <%= s.score %>
-    <%# </p> %>
-=======
-<div class="card bg-danger my-4">
-  <div class="card-header">
-    <h1 class="text-light text-center">Soluciones Enviadas</h1>
-  </div>
-</div>
-<% @courses.each do |c| %>
-  <button class="btn btn-primary w-100 border-light" type="button" data-bs-toggle="collapse" data-bs-target="#course_<%= c.id %>" aria-expanded="false" aria-controls="course_<%= c.id %>">
-    <h2 class="my-5"><%= image_tag c.course_img, class:'icon-medium me-3'%><%= c.name %></h2>
-    <small class="text-light"><%= c.solutions.where(score:nil).count %> soluciones por revisar</small>
-  </button>
-  <div class="collapse" id="course_<%= c.id %>">
-    <div class="unit container d-flex flex-column align-items-center my-3" >
-      <% c.units.each do |u| %>
-        <button class="btn btn-warning w-100 border-light " type="button" data-bs-toggle="collapse" data-bs-target="#unit_<%= u.id %>" aria-expanded="false" aria-controls="unit_<%= u.id %>">
-          <h3 class="my-4"><%= image_tag u.unit_img, class:'icon me-3'%><%= u.title %></h3>
-          <small class="text-light"><%= u.solutions.where(score:nil).count %> soluciones por revisar</small>
-        </button>
-        <div class="collapse" id="unit_<%= u.id %>">
-          <div class="activity container d-flex flex-column align-items-center my-3" >
-            <% u.activities.activity_type_ejercicio.each do |a| %>
-              <button class="btn btn-info w-100 border-light text-light" type="button" data-bs-toggle="collapse" data-bs-target="#activity_<%= a.id %>" aria-expanded="false" aria-controls="activity_<%= a.id %>">
-                <h4 class="my-3"><%= a.title %></h4>
-                <small class="text-light"><%= a.solutions.where(score:nil).count %> soluciones por revisar</small>
-              </button>
-              <div class="collapse" id="activity_<%= a.id %>">
-                <div class="solution container d-flex flex-column align-items-center my-3" >
-                  <% a.solutions.order("score DESC NULLS FIRST").each do |s|%>
-                    <a href="<%= url_for(s) %>" style="text-decoration: none;color: white">
-                      <div class="solution card my-3 <%= s.score.nil? ? 'bg-danger' : 'bg-success'%>">
-                        <div class="card-header">
-                          <h5><%= s.enrollment.user.full_name %><%= image_tag s.enrollment.user.avatar, class:'shadow avatar-medium ms-5' %></h5>
-                        </div>
-                        <div class="card-body">
-                          <% if s.score.nil? %>
-                            <p class="text-center">Aun no ha sido calificado</p>
-                          <% else %>
-                            <p class="text-center">Nota: <%= s.score %></p>
-                            <p class="text-center"><%= s.comment %></p>
-                          <% end %>
-                        </div>
-                        <div class="card-footer">
-                          <p class="text-center"><%= s.created_at %></p>
-                        </div>
-                      </div>
-                    <% end %>
-                  </a>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
+<div class="container">
+  <div class="card bg-danger my-4">
+    <div class="card-header">
+      <h1 class="text-light text-center">Soluciones Enviadas</h1>
     </div>
->>>>>>> 18cea82ef604c8b3dcd91902a81564bd4f08cb4e
   </div>
-<% end %>
+  <% @courses.each do |c| %>
+    <button class="btn btn-primary w-100 border-light" type="button" data-bs-toggle="collapse" data-bs-target="#course_<%= c.id %>" aria-expanded="false" aria-controls="course_<%= c.id %>">
+      <h2 class="my-5"><%= image_tag c.course_img, class:'icon-medium me-3'%><%= c.name %></h2>
+      <small class="text-light"><%= c.solutions.where(score:nil).count %> soluciones por revisar</small>
+    </button>
+    <div class="collapse" id="course_<%= c.id %>">
+      <div class="unit container d-flex flex-column align-items-center my-3" >
+        <% c.units.each do |u| %>
+          <button class="btn btn-warning w-100 border-light " type="button" data-bs-toggle="collapse" data-bs-target="#unit_<%= u.id %>" aria-expanded="false" aria-controls="unit_<%= u.id %>">
+            <h3 class="my-4"><%= image_tag u.unit_img, class:'icon me-3'%><%= u.title %></h3>
+            <small class="text-light"><%= u.solutions.where(score:nil).count %> soluciones por revisar</small>
+          </button>
+          <div class="collapse w-75" id="unit_<%= u.id %>">
+            <div class="activity container d-flex flex-column align-items-center my-3" >
+              <% u.activities.activity_type_ejercicio.each do |a| %>
+                <button class="btn btn-info w-100 border-light text-light" type="button" data-bs-toggle="collapse" data-bs-target="#activity_<%= a.id %>" aria-expanded="false" aria-controls="activity_<%= a.id %>">
+                  <h4 class="my-3"><%= a.title %></h4>
+                  <small class="text-light"><%= a.solutions.where(score:nil).count %> soluciones por revisar</small>
+                </button>
+                <div class="collapse" id="activity_<%= a.id %>">
+                  <div class="solution container d-flex flex-column align-items-center my-3" >
+                    <% a.solutions.order("score DESC NULLS FIRST").each do |s|%>
+                      <a href="<%= url_for(s) %>" style="text-decoration: none;color: white" class="w-100">
+                        <div class="solution card my-3 <%= s.score.nil? ? 'bg-danger' : 'bg-success'%>">
+                          <div class="card-header">
+                            <h5 class="d-flex justify-content-around align-items-center"><%= s.enrollment.user.full_name %><%= image_tag s.enrollment.user.avatar, class:'shadow avatar-medium ms-5' %></h5>
+                          </div>
+                          <div class="card-body">
+                            <% if s.score.nil? %>
+                              <p class="text-center">Aun no ha sido calificado</p>
+                            <% else %>
+                              <p class="text-center">Nota: <%= s.score %></p>
+                              <p class="text-center"><%= s.comment %></p>
+                            <% end %>
+                          </div>
+                          <div class="card-footer">
+                            <p class="text-center"><%= s.created_at %></p>
+                          </div>
+                        </div>
+                      <% end %>
+                    </a>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

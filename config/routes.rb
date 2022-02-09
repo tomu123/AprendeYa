@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'pages#home'
+  get 'academic_record', to: 'pages#academic_record'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :courses, only: [:index, :show] do
     resources :enrollments, only: :create
