@@ -1,6 +1,6 @@
 <div class="container">
   <div class="d-flex flex-row m-3 align-items-center justify-content-around">
-    <div class="activity-show-details w-75">
+    <div class="activity-show-details " style="width:72%">
       <div class="card bg-warning w-100">
         <div class="card-header">
           <% if @activity.activity_type_ejercicio? %>
@@ -19,12 +19,15 @@
       <div class="file-preview d-flex justify-content-center">
         <% if @activity.activity_type_ejercicio? %>
         <!-- Button trigger modal -->
-          <button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#activity_file">
-            <%= image_tag @activity.file.preview(resize_to_limit: [450, 450]), class:'rounded'%>
+          <button type="button" class="btn btn-warning my-4 w-50" data-bs-toggle="modal" data-bs-target="#activity_file">
+            <%= cl_image_tag(@activity.file.key,:transformation=>[
+              {:width=>550, :crop=>"scale"},
+              {:fetch_format=>:auto}
+              ], class:'w-100 rounded') %>
           </button>
           <!-- Modal -->
           <div class="modal fade" id="activity_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="width:50vw;max-width:50vw">
               <div class="modal-content">
                 <div class="modal-header">
                   <%= link_to  @activity.file, class:'btn btn-secondary mr-3' do%>
@@ -36,7 +39,7 @@
                   <iframe
                   class="w-100"
                   style="height:60vh;"
-                  src=<%= url_for(@activity.file) %>></iframe>
+                  src=<%= cloudinary_url(@activity.file.key, :format => "pdf") %>></iframe>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -58,23 +61,23 @@
     </div>
     <% if @activity.activity_type_ejercicio? %>
       <% if @done %>
-        <div class="card border-primary " style="width:20%">
+        <div class="card border-primary " style="width:24%">
           <div class="card-header bg-primary text-light">
             <h3>Tu Trabajo</h3>
           </div>
           <div class="card-body text-dark">
             <%= simple_form_for @solution, url: activity_solutions_path(params[:id]), html: {id: "solution_form"} ,defaults: { wrapper_html: { class: "form-floating mb-3" }} do |f| %>
               <span>Seleccione su archivo</span>
-              <%= f.input :file ,input_html: { class: 'solution'}, label: false%>
+              <%= f.input :file ,input_html: { class: 'solution'}, label: false, direct_upload: true%>
               <%= f.submit 'Subir Solucion', class:'btn btn-primary'%>
             <% end %>
           </div>
         </div>
       <% else %>
         <% if @solution.score.nil? %>
-          <div class="card border-primary " style="width:22%" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" title="Sin Calificar" data-bs-custom-class="text-center" data-bs-content="Tu trabajo todavia no ha sido calificado, porfavor consulta con el profesor a cargo.">
+          <div class="card border-primary " style="width:24%" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" title="Sin Calificar" data-bs-custom-class="text-center" data-bs-content="Tu trabajo todavia no ha sido calificado, porfavor consulta con el profesor a cargo.">
         <% else %>
-          <div class="card border-primary " style="width:22%">
+          <div class="card border-primary " style="width:24%">
         <% end %>
           <div class="card-header bg-primary text-light">
             <h3>Tu Trabajo</h3>
@@ -86,12 +89,15 @@
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#solution_file">
-              <%= image_tag @solution.file.preview(resize_to_limit: [350, 350]), class:'rounded'%>
+              <%= cl_image_tag(@solution.file.key,:transformation=>[
+              {:width=>550, :crop=>"scale"},
+              {:fetch_format=>:auto}
+              ], class:'w-100 rounded') %>
             </button>
 
             <!-- Modal -->
             <div class="modal fade" id="solution_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
+              <div class="modal-dialog" style="width:50vw;max-width:50vw">
                 <div class="modal-content">
                   <div class="modal-header">
                     <%= link_to  @solution.file, class:'btn btn-secondary mr-3' do%>
