@@ -1,95 +1,97 @@
-<% if @activity.activity_type_ejercicio? %>
-  <% if @activity.done == false %>
-    <p><i class="fas fa-circle" style="color:red"></i> Pendiente</p>
-  <% else %>
-    <p><i class="fas fa-check" style="color:green"></i></i> Hecho</p>
-  <% end %>
-<% end %>
-<div class="d-flex flex-row m-3">
-  <div class="activity-show-details">
-    <h2><%= @activity.title %></h2>
-    <p><%= @activity.description %></p>
-    <% if @activity.activity_type_ejercicio? %>
-      <!-- Button trigger modal -->
-        <button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#activity_file">
-          <%= image_tag @activity.file.preview(resize_to_limit: [450, 450]), class:'rounded'%>
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="activity_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <%= link_to  @activity.file, class:'btn btn-secondary mr-3' do%>
-                  <i class="fas fa-external-link-alt"></i>
-                <% end %>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <iframe
-                class="w-100"
-                style="height:60vh;"
-                src=<%= url_for(@activity.file) %>></iframe>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    <% end %>
-  </div>
+<div class="container">
   <% if @activity.activity_type_ejercicio? %>
-    <div class="solution-show-details">
-      <h3>Detalles de la solucion</h3>
-      <%= simple_form_for @solution, html: {id: "solution_form"} do |f| %>
-        <div class="form-floating mb-3">
-          <input type="number" name="solution[score]" id="solution_score" <%= raw("value=#{@solution.score}") unless @solution.score.nil? %> form="solution_form" placeholder=' ' class="form-control" disabled>
-          <label for="solution_score">Nota</label>
-        </div>
+    <% if @activity.done == false %>
+      <p><i class="fas fa-circle" style="color:red"></i> Pendiente</p>
+    <% else %>
+      <p><i class="fas fa-check" style="color:green"></i></i> Hecho</p>
+    <% end %>
+  <% end %>
+  <div class="d-flex flex-row m-3">
+    <div class="activity-show-details">
+      <h2><%= @activity.title %></h2>
+      <p><%= @activity.description %></p>
+      <% if @activity.activity_type_ejercicio? %>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#solution_file">
-          <%= image_tag @solution.file.preview(resize_to_limit: [350, 350]), class:'rounded'%>
-        </button>
+          <button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#activity_file">
+            <%= image_tag @activity.file.preview(resize_to_limit: [450, 450]), class:'rounded'%>
+          </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="solution_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <%= link_to  @solution.file, class:'btn btn-secondary mr-3' do%>
-                  <i class="fas fa-external-link-alt"></i>
-                <% end %>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <iframe
-                class="w-100"
-                style="height:60vh;"
-                src=<%= url_for(@solution.file) %>></iframe>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- Modal -->
+          <div class="modal fade" id="activity_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <%= link_to  @activity.file, class:'btn btn-secondary mr-3' do%>
+                    <i class="fas fa-external-link-alt"></i>
+                  <% end %>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <iframe
+                  class="w-100"
+                  style="height:60vh;"
+                  src=<%= url_for(@activity.file) %>></iframe>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <%= f.input :file , class:"document"%>
-        <div class="form-floating mb-3">
-          <input type="text" name="solution[comment]" id="solution_comment" <%= raw("value='#{@solution.comment}'") unless @solution.comment.nil? %> form="solution_form" placeholder=' ' class="form-control" disabled>
-          <label for="solution_comment">Comentario</label>
-        </div>
-
-        <%= f.submit "#{@solution.score.nil? ? 'Calificar' : 'Editar Calificacion'}", class:'btn btn-primary'%>
       <% end %>
     </div>
+    <% if @activity.activity_type_ejercicio? %>
+      <div class="solution-show-details">
+        <h3>Detalles de la solucion</h3>
+        <%= simple_form_for @solution, html: {id: "solution_form"} do |f| %>
+          <div class="form-floating mb-3">
+            <input type="number" name="solution[score]" id="solution_score" <%= raw("value=#{@solution.score}") unless @solution.score.nil? %> form="solution_form" placeholder=' ' class="form-control" disabled>
+            <label for="solution_score">Nota</label>
+          </div>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#solution_file">
+            <%= image_tag @solution.file.preview(resize_to_limit: [350, 350]), class:'rounded'%>
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="solution_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <%= link_to  @solution.file, class:'btn btn-secondary mr-3' do%>
+                    <i class="fas fa-external-link-alt"></i>
+                  <% end %>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <iframe
+                  class="w-100"
+                  style="height:60vh;"
+                  src=<%= url_for(@solution.file) %>></iframe>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= f.input :file , class:"document"%>
+          <div class="form-floating mb-3">
+            <input type="text" name="solution[comment]" id="solution_comment" <%= raw("value='#{@solution.comment}'") unless @solution.comment.nil? %> form="solution_form" placeholder=' ' class="form-control" disabled>
+            <label for="solution_comment">Comentario</label>
+          </div>
+
+          <%= f.submit "#{@solution.score.nil? ? 'Calificar' : 'Editar Calificacion'}", class:'btn btn-primary'%>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% if @activity.activity_type_clase? %>
+    <video controls width="450">
+      <source src="<%= url_for(@activity.file) %>"
+              type="video/mp4">
+
+      Sorry, your browser doesn't support embedded videos.
+    </video>
   <% end %>
 </div>
-<% if @activity.activity_type_clase? %>
-  <video controls width="450">
-    <source src="<%= url_for(@activity.file) %>"
-            type="video/mp4">
-
-    Sorry, your browser doesn't support embedded videos.
-  </video>
-<% end %>

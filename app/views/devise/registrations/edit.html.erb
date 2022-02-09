@@ -1,40 +1,42 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container">
+  <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put },wrapper: :floating_labels_form,
-  wrapper_mappings: {
-    select:        :floating_labels_select
-  },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put },wrapper: :floating_labels_form,
+    wrapper_mappings: {
+      select:        :floating_labels_select
+    },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+    <div class="form-inputs">
+      <%= f.input :email, required: true, autofocus: true %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-    <%= f.input :first_name,
-                required: true %>
-    <%= f.input :last_name,
-                required: true %>
-    <%= f.input :teacher %>
-    <label for="avatar">Choose an avatar</label>
-    <%= f.input :avatar ,input_html: { class: 'image',id: 'avatar' }, label: false%>
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
-  </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <% end %>
+      <%= f.input :first_name,
+                  required: true %>
+      <%= f.input :last_name,
+                  required: true %>
+      <%= f.input :teacher %>
+      <label for="avatar">Choose an avatar</label>
+      <%= f.input :avatar ,input_html: { class: 'image',id: 'avatar' }, label: false%>
+      <%= f.input :password,
+                  hint: "leave it blank if you don't want to change it",
+                  required: false,
+                  input_html: { autocomplete: "new-password" } %>
+      <%= f.input :password_confirmation,
+                  required: false,
+                  input_html: { autocomplete: "new-password" } %>
+      <%= f.input :current_password,
+                  hint: "we need your current password to confirm your changes",
+                  required: true,
+                  input_html: { autocomplete: "current-password" } %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" ,class:'btn btn-primary'%>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.button :submit, "Update" ,class:'btn btn-primary'%>
+    </div>
+  <% end %>
 
-<%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class:'btn btn-danger mt-3' %>
+  <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class:'btn btn-danger mt-3' %>
+</div>

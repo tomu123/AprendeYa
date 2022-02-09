@@ -1,33 +1,37 @@
-<div class="card">
-  <div class="card-header bg-primary rounded">
-    <h1 class="text-light"><%= image_tag @course.course_img , class:'shadow avatar-medium me-3'%><%= @course.name %></h1>
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-primary rounded">
+      <h1 class="text-light"><%= image_tag @course.course_img , class:'shadow avatar-medium me-3'%><%= @course.name %></h1>
+    </div>
   </div>
-</div>
-<div class="container units">
-  <div class="badge bg-danger text-wrap my-3">
-    <h2>Unidades:</h2>
+  <div class="container units pt-4">
+
+    <div class="container">
+      <% @course.units.each do |u| %>
+        <a href="<%= url_for(u) %>" style="text-decoration: none;color: black">
+          <div class="unit card my-3 bg-warning">
+            <div class="card-header">
+              <h3><%= image_tag u.unit_img , class:'shadow avatar-medium ms-5 me-3'%><%= u.title %></h3>
+            </div>
+            <div class="card-body">
+              <h4 class="ms-5">Actividades:</h4>
+              <div class="d-flex justify-content-evenly">
+                <p class="text-center fs-4">Clases: <%= u.activities.activity_type_clase.count %></p>
+                <p class="text-center fs-4">Ejercicios: <%= u.activities.activity_type_ejercicio.count %></p>
+                <p class="text-center fs-4">Recursos: <%= u.activities.activity_type_recurso.count %></p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <p class="text-center fs-6"><%= ejercicios_pendientes = u.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    </div>
   </div>
-  <div class="container">
-    <% @course.units.each do |u| %>
-      <a href="<%= url_for(u) %>" style="text-decoration: none;color: white">
-        <div class="unit card my-3 bg-warning">
-          <div class="card-header">
-            <h3><%= image_tag u.unit_img , class:'shadow avatar-medium ms-5 me-3'%><%= u.title %></h3>
-          </div>
-          <div class="card-body">
-            <h4 class="ms-5">Actividades:</h4>
-            <p class="text-center">Clases: <%= u.activities.activity_type_clase.count %></p>
-            <p class="text-center">Ejercicios: <%= u.activities.activity_type_ejercicio.count %></p>
-            <p class="text-center">Recursos: <%= u.activities.activity_type_recurso.count %></p>
-          </div>
-          <div class="card-footer">
-            <p class="text-center"><%= ejercicios_pendientes = u.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
-          </div>
-        </div>
-      </a>
+  <div class="d-flex justify-content-center">
+    <% if Enrollment.find_by(course: @course,user:current_user).nil? %>
+      <%= button_to 'Matriculate', course_enrollments_path(params[:id]),method: :post, class:"btn btn-danger my-3 fs-4" %>
     <% end %>
   </div>
 </div>
-<% if Enrollment.find_by(course: @course,user:current_user).nil? %>
-  <%= button_to 'Matriculate', course_enrollments_path(params[:id]),method: :post, class:"btn btn-primary my-3" %>
-<% end %>
