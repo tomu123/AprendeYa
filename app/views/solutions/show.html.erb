@@ -16,7 +16,10 @@
       <div class="file-preview d-flex justify-content-center">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#activity_file">
-          <%= image_tag @solution.activity.file.preview(resize_to_limit: [450, 450]), class:'w-100 rounded'%>
+          <%= cl_image_tag(@solution.activity.file.key,:transformation=>[
+              {:width=>550, :crop=>"scale"},
+              {:fetch_format=>:auto}
+              ], class:'w-100 rounded') %>
         </button>
         <!-- Modal -->
         <div class="modal fade" id="activity_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -53,7 +56,10 @@
         </div>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#solution_file" style="width:90%">
-          <%= image_tag @solution.file.preview(resize_to_limit: [350, 350]), class:'w-100 rounded'%>
+          <%= cl_image_tag(@solution.file.key,:transformation=>[
+              {:width=>550, :crop=>"scale"},
+              {:fetch_format=>:auto}
+              ], class:'w-100 rounded') %>
         </button>
         <!-- Modal -->
         <div class="modal fade" id="solution_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
