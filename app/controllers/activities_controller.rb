@@ -16,6 +16,7 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find(params[:id])
     @solution = @activity.solutions.joins(:enrollment).find_by(enrollment: { user: current_user })
+    @solution ||= Solution.new
   end
 
   def index

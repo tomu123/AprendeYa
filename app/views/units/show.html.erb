@@ -1,48 +1,50 @@
-<div class="card bg-info my-5">
-  <div class="card-header rounded">
-    <h2><%= @unit.title %></h2>
-  </div>
-  <div class="card-body  rounded">
-    <p><%= @unit.description %></p>
-  </div>
-</div>
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <a href="<%= get_by_type_unit_activities_path(@unit, "clase") %>" style="text-decoration: none;color: white">
-        <div class="activity_type card my-3 bg-warning">
-          <img src="https://images.squarespace-cdn.com/content/v1/53aadf1de4b0a0a817640cca/1543441296303-5DFSRW22S9L7FKHZSGQX/bigstock-Pupils-And-Teacher-In-Classroo-254321620.jpg" class="card-img-top" alt="..." style="height:25vh;">
-          <div class="card-body">
-            <h4 class="text-center card-text">Clases</h4>
-          </div>
-        </div>
-      </a>
+  <div class="card bg-info my-5">
+    <div class="card-header rounded">
+      <h2><%= @unit.title %></h2>
     </div>
-    <div class="col">
-      <a href="<%= get_by_type_unit_activities_path(@unit, "ejercicio") %>" style="text-decoration: none;color: white">
-        <div class="activity_type card my-3 bg-warning">
-          <img src="http://previews.123rf.com/images/gorelova/gorelova0908/gorelova090800019/5421842-El-chico-divertido-hacer-la-tarea-Foto-de-archivo.jpg" class="card-img-top" alt="..." style="height:25vh;" >
-          <div class="card-body">
-            <h4 class="text-center card-text">Ejercicios</h4>
-          </div>
-          <% ejercicios_pendientes = @unit.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %>
-          <% if ejercicios_pendientes > 0%>
-            <div class="card-footer bg-danger">
-              <p class="text-center"><%= ejercicios_pendientes %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+    <div class="card-body  rounded">
+      <p><%= @unit.description %></p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="<%= get_by_type_unit_activities_path(@unit, "clase") %>" style="text-decoration: none;color: white">
+          <div class="activity_type card my-3 bg-warning">
+            <img src="https://images.squarespace-cdn.com/content/v1/53aadf1de4b0a0a817640cca/1543441296303-5DFSRW22S9L7FKHZSGQX/bigstock-Pupils-And-Teacher-In-Classroo-254321620.jpg" class="card-img-top" alt="..." style="height:25vh;">
+            <div class="card-body">
+              <h4 class="text-center card-text">Clases</h4>
             </div>
-          <% end %>
-        </div>
-      </a>
-    </div>
-    <div class="col">
-      <a href="<%= get_by_type_unit_activities_path(@unit, "recurso") %>" style="text-decoration: none;color: white">
-        <div class="activity_type card my-3 bg-warning">
-          <img src="http://www.ugelcrucero.edu.pe/wp-content/uploads/2019/12/documentos-diagrama-finanzas_48369-1202.jpg" class="card-img-top" alt="..." style="height:25vh;">
-          <div class="card-body">
-            <h4 class="text-center card-text">Recursos</h4>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
+      <div class="col">
+        <a href="<%= get_by_type_unit_activities_path(@unit, "ejercicio") %>" style="text-decoration: none;color: white">
+          <div class="activity_type card my-3 bg-warning">
+            <img src="http://previews.123rf.com/images/gorelova/gorelova0908/gorelova090800019/5421842-El-chico-divertido-hacer-la-tarea-Foto-de-archivo.jpg" class="card-img-top" alt="..." style="height:25vh;" >
+            <div class="card-body">
+              <h4 class="text-center card-text">Ejercicios</h4>
+            </div>
+            <% ejercicios_pendientes = @unit.activities.activity_type_ejercicio.left_outer_joins(:solutions).where(solutions: {id: nil}).count %>
+            <% if ejercicios_pendientes > 0%>
+              <div class="card-footer bg-danger">
+                <p class="text-center"><%= ejercicios_pendientes %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+              </div>
+            <% end %>
+          </div>
+        </a>
+      </div>
+      <div class="col">
+        <a href="<%= get_by_type_unit_activities_path(@unit, "recurso") %>" style="text-decoration: none;color: white">
+          <div class="activity_type card my-3 bg-warning">
+            <img src="http://www.ugelcrucero.edu.pe/wp-content/uploads/2019/12/documentos-diagrama-finanzas_48369-1202.jpg" class="card-img-top" alt="..." style="height:25vh;">
+            <div class="card-body">
+              <h4 class="text-center card-text">Recursos</h4>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>

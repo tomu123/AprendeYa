@@ -81,7 +81,7 @@
             <label for="solution_comment">Comentario</label>
           </div>
 
-          <%= f.submit "#{@solution.score.nil? ? 'Calificar' : 'Editar Calificacion'}", class:'btn btn-primary'%>
+          <%= f.submit "#{@solution.file.nil? ? 'Subir Solucion' : 'Editar Calificacion'}", class:'btn btn-primary'%>
         <% end %>
       </div>
     <% end %>
