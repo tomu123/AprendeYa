@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Adding Courses
+
 Course.all.each do |c|
   c.course_img.purge
 end
