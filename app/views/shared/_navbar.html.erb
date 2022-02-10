@@ -8,11 +8,11 @@
       <li><%= link_to "Home", root_path, class: "nav-link px-2 link-secondary" %></li>
       <li><%= link_to "Cursos", courses_path, class: "nav-link px-2 link-secondary" %></li>
       <li>
-        <% if current_user.teacher %>
-          <%= link_to "Soluciones", solutions_path, class: "nav-link px-2 link-secondary" %>
-        <% else %>
-          <%= link_to "Notas", academic_record_path, class: "nav-link px-2 link-secondary"%>
-        <% end %>
+        <%# if current_user.teacher %>
+          <%#=  link_to "Soluciones", solutions_path, class: "nav-link px-2 link-secondary" %>
+        <%# else %>
+          <%#= link_to "Notas", academic_record_path, class: "nav-link px-2 link-secondary"%>
+        <%# end %>
       </li>
     </ul>
     <div class="col-md-3 text-end">
