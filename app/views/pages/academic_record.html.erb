@@ -126,7 +126,7 @@
                                 <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
                                 <td <%= solution.nil? ? "class=\"text-primary\"" : '' %>>
                                   <%= link_to solution , style:"text-decoration: none;display:block;" do %>
-                                    <%= if solution.nil? %>
+                                    <% if solution.nil? %>
                                       <i class="fas fa-check" style="color:green"></i> Sin Calificar
                                     <% else %>
                                       <%= solution.score %>
@@ -214,7 +214,7 @@
                             <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
                             <td <%= solution.nil? ? "class=\"text-primary\"" : '' %>>
                               <%= link_to solution , style:"text-decoration: none;display:block;" do %>
-                                <%= if solution.nil? %>
+                                <% if solution.nil? %>
                                   <i class="fas fa-check" style="color:green"></i> Sin Calificar
                                 <% else %>
                                   <%= solution.score %>
