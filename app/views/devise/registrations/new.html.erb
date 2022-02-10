@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Sign up</h2>
+  <h2>Regístrate</h2>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),wrapper: :floating_labels_form,
     wrapper_mappings: {
@@ -17,7 +17,7 @@
       <%= f.input :last_name,
                   required: true %>
       <%= f.input :teacher %>
-      <label for="avatar">Choose an avatar</label>
+      <label for="avatar">Elegir foto de perfil</label>
       <%= f.input :avatar ,input_html: { class: 'image',id: 'avatar' }, label: false%>
       <%= f.input :password,
                   required: true,
@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Sign up" ,class:'btn btn-primary'%>
+      <%= f.button :submit, "Regístrate" ,class:'btn btn-primary'%>
     </div>
   <% end %>
 
