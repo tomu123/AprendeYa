@@ -187,9 +187,9 @@
                         <% no2+=1 %>
                         <% solution = a.solutions.joins(:enrollment).find_by(enrollment: c.enrollments.find_by(student: current_user)) %>
                           <tr>
-                            <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
-                            <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
-                            <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= solution&.score %><% end %></td>
+                            <th scope="row"><%= link_to a , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
+                            <td><%= link_to a , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
+                            <td><%= link_to a , style:"text-decoration: none;display:block;" do %><%= solution&.score %><% end %></td>
                           </tr>
                       <% end %>
                       <% if u.activities.activity_type_ejercicio.empty? %>

@@ -1,10 +1,12 @@
 class SolutionsController < ApplicationController
   before_action :set_solution, only: %i[update show]
   def index
+    redirect_to root_path unless current_user.teacher
     @courses = Course.all
   end
 
   def show
+    redirect_to root_path unless current_user.teacher
   end
 
   def create
