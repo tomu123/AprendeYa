@@ -31,3 +31,6 @@ $container-max-widths: (
   xxl: 82vw,
 );
 $enable-cssgrid: true;
+$table-variants: (
+  "warning": $color_table,
+);

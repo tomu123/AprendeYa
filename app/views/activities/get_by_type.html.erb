@@ -11,7 +11,7 @@
           <div class="course card bg-info d-flex h-100">
             <div class="card-header flex-grow-1 d-flex flex-column justify-content-center align-items-center">
               <% if a.activity_type_ejercicio? %>
-                <% if a.solutions.joins(:enrollment).find_by(enrollment: { user: current_user }).nil? %>
+                <% if a.solutions.joins(:enrollment).find_by(enrollment: { student: current_user }).blank? %>
                   <span><i class="fas fa-circle" style="color:red"></i> Pendiente</span>
                 <% else %>
                   <span><i class="fas fa-check" style="color:green"></i> Hecho</span>

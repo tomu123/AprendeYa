@@ -5,4 +5,5 @@ class Course < ApplicationRecord
   validates :name, presence: true
   has_many :solutions, through: :units
   has_many :activities, through: :units
+  has_many :students, through: :enrollments
 end

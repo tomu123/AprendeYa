@@ -1,45 +1,211 @@
-<div class="container pt-3">
-  <div class="card bg-danger my-4">
+<div class="container pt-3 d-flex flex-column align-items-center my-3">
+  <div class="card bg-danger my-4 w-100">
     <div class="card-header">
       <h1 class="text-light text-center">Historial Académico</h1>
     </div>
   </div>
-  <% if current_user.teacher == false %>
-    <% @enrollments.each do |e| %>
-      <div class="course card my-3 bg-info text-light">
-        <div class="card-header">
-          <h3><%= image_tag e.course.course_img , class:'shadow avatar-medium ms-5 me-3'%><%= e.course.name %></h3>
-        </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-evenly">
-           <% e.solutions.each do |solution|  %>
-             <span class="text-center fs-5"><%= solution.activity.title %></span>
-             <span class="text-center fs-5"><%= solution.score %></span>
-           <% end %>
-          </div>
-        </div>
-    <% end %>
-  <% else %>
-    <% @users.each do |user| %>
-      <% if user.teacher == false %>
-        <div class="course card my-3 bg-info text-light">
-          <div class="card-header">
-            <%= image_tag user.avatar , class:"avatar" %>
-            <span><%= user.first_name + ' ' + user.last_name%></span>
-          </div>
-          <div class="card-body">
-            <% user.enrollments.each do |enrollment| %>
-                <h2 class="ms-3"><%= enrollment.course.name %></h2>
-                <div class="d-flex justify-content-evenly">
-                  <% enrollment.solutions.each do |solution|  %>
-                    <span class="text-center fs-5"><%= solution.activity.title %></span>
-                    <span class="text-center fs-5"><%= solution.score %></span>
-                  <% end %>
-                </div>
-            <% end %>
-          </div>
-        </div>
+  <% @courses = (current_user.teacher ? @courses : @courses.joins(:enrollments).where(enrollments: {student: current_user})) %>
+  <% @courses.each do |c| %>
+    <% alumnos_matriculados = c.students.order(:first_name,:last_name) %>
+    <button class="btn btn-primary w-100 border-light" type="button" style="position:relative" data-bs-toggle="collapse" data-bs-target="#course_<%= c.id %>" aria-expanded="false" aria-controls="course_<%= c.id %>">
+      <h2 class="my-5"><%= image_tag c.course_img, class:'icon-medium me-3'%><%= c.name %></h2>
+      <% if current_user.teacher %>
+        <small class="text-light fs-6">alumnos matriculados : <%= alumnos_matriculados.count %></small>
+      <% else %>
+        <div class="bg-warning rounded d-flex align-items-center justify-content-center fs-1 fw-bold" style="height:40%;width:6%;position:absolute;top:30%;right:5%"><%= c.enrollments.find_by(student: current_user).final_grade %></div>
       <% end %>
-    <% end %>
+    </button>
+    <div class="collapse w-75 my-4 " id="course_<%= c.id %>">
+      <% if current_user.teacher %>
+        <table class="table table-bordered table-warning table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Final Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% no = 0 %>
+            <% alumnos_matriculados.each do |am| %>
+              <!-- Button trigger modal -->
+              <% no+=1 %>
+              <tr data-bs-toggle="modal" data-bs-target="#<%= "alumno" %>">
+                <th scope="row"><%= no %></th>
+                <td><%= am.first_name %></td>
+                <td><%= am.last_name %></td>
+                <td><%= c.enrollments.find_by(student: am).final_grade %></td>
+              </tr>
+            <% end %>
+            <% if alumnos_matriculados.empty? %>
+              <div class="alert alert-warning">No hay alumnos matriculados</div>
+            <% end %>
+          </tbody>
+        </table>
+        <% no = 0 %>
+        <% alumnos_matriculados.each do |am| %>
+          <!-- Button trigger modal -->
+          <% no+=1 %>
+          <!-- Modal -->
+          <div class="modal fade" id="<%= "alumno" %>" tabindex="-1" aria-labelledby="<%= "alumno" %>Label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:50vw;max-width:50vw">
+              <div class="modal-content" >
+                <div class="modal-header">
+                  <h5 class="modal-title" id="<%= "alumno" %>Label"><%= am.full_name %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-bordered table-warning table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">Final Grade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% no1 = 0 %>
+                      <% c.units.each do |u| %>
+                        <!-- Button trigger modal -->
+                        <% no1+=1 %>
+                        <tr data-bs-toggle="modal" data-bs-target="#<%= "unidad_#{no1}" %>">
+                          <th scope="row"><%= no1 %></th>
+                          <td><%= u.title %></td>
+                          <% scores = u.solutions.where.not(score: nil).joins(:enrollment).where(enrollment: c.enrollments.find_by(student: am)) %>
+                          <td><%= scores.empty? ? nil : ((scores.to_a.map{ |s| s.score}.reduce(:+) * 1.0) / scores.count) %></td>
+                        </tr>
+                      <% end %>
+                      <% if c.units.empty? %>
+                        <div class="alert alert-warning">No hay unidades registradas</div>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Volver a lista de alumnos</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% no1 = 0 %>
+          <% c.units.each do |u| %>
+            <!-- Button trigger modal -->
+            <% no1+=1 %>
+            <div class="modal fade" id="<%= "unidad_#{no1}" %>" tabindex="-1" aria-labelledby="<%= "unidad_#{no1}" %>Label" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:50vw;max-width:50vw">
+                <div class="modal-content" >
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="<%= "unidad_#{no1}" %>Label"><%= am.full_name %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table table-bordered table-warning table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Actividad</th>
+                          <th scope="col">Final Grade</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% no2 = 0 %>
+                        <% u.activities.activity_type_ejercicio.each do |a| %>
+                          <!-- Button trigger modal -->
+                          <% no2+=1 %>
+                          <% solution = a.solutions.joins(:enrollment).find_by(enrollment: c.enrollments.find_by(student: am)) %>
+                            <tr>
+                              <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
+                              <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
+                              <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= solution&.score %><% end %></td>
+                            </tr>
+                        <% end %>
+                        <% if u.activities.activity_type_ejercicio.empty? %>
+                          <div class="alert alert-warning">No hay ejercicios registrados</div>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<%= "alumno" %>">Volver a lista de unidades</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <table class="table table-bordered table-warning table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Unidad</th>
+              <th scope="col">Final Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% no1 = 0 %>
+            <% c.units.each do |u| %>
+              <!-- Button trigger modal -->
+              <% no1+=1 %>
+              <tr data-bs-toggle="modal" data-bs-target="#<%= "unidad_#{no1}" %>">
+                <th scope="row"><%= no1 %></th>
+                <td><%= u.title %></td>
+                <% scores = u.solutions.where.not(score: nil).joins(:enrollment).where(enrollment: c.enrollments.find_by(student: current_user)) %>
+                <td><%= scores.empty? ? nil : ((scores.to_a.map{ |s| s.score}.reduce(:+) * 1.0) / scores.count) %></td>
+              </tr>
+            <% end %>
+            <% if c.units.empty? %>
+              <div class="alert alert-warning">No hay unidades registradas</div>
+            <% end %>
+          </tbody>
+        </table>
+        <% no1 = 0 %>
+        <% c.units.each do |u| %>
+          <!-- Button trigger modal -->
+          <% no1+=1 %>
+          <div class="modal fade" id="<%= "unidad_#{no1}" %>" tabindex="-1" aria-labelledby="<%= "unidad_#{no1}" %>Label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:50vw;max-width:50vw">
+              <div class="modal-content" >
+                <div class="modal-header">
+                  <h5 class="modal-title" id="<%= "unidad_#{no1}" %>Label"><%= current_user.full_name %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-bordered table-warning table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Actividad</th>
+                        <th scope="col">Final Grade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% no2 = 0 %>
+                      <% u.activities.activity_type_ejercicio.each do |a| %>
+                        <!-- Button trigger modal -->
+                        <% no2+=1 %>
+                        <% solution = a.solutions.joins(:enrollment).find_by(enrollment: c.enrollments.find_by(student: current_user)) %>
+                          <tr>
+                            <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
+                            <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
+                            <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= solution&.score %><% end %></td>
+                          </tr>
+                      <% end %>
+                      <% if u.activities.activity_type_ejercicio.empty? %>
+                        <div class="alert alert-warning">No hay ejercicios registrados</div>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Volver a lista de unidades</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 </div>

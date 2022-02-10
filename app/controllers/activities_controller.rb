@@ -15,8 +15,8 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @solution = @activity.solutions.joins(:enrollment).find_by(enrollment: { user: current_user })
-    @done = @solution.nil?
+    @solution = @activity.solutions.joins(:enrollment).find_by(enrollment: { student: current_user })
+    @done = @solution.blank?
     @solution ||= Solution.new
   end
 

@@ -10,7 +10,7 @@
           <p><%= @solution.activity.description %></p>
         </div>
         <div class="card-footer">
-          <p class="fw-bold">Alumno: <%= @solution.enrollment.user.full_name %></p>
+          <p class="fw-bold">Alumno: <%= @solution.enrollment.student.full_name %></p>
         </div>
       </div>
       <div class="file-preview d-flex justify-content-center">
@@ -51,7 +51,7 @@
       </div>
       <div class="card-body text-dark text-center">
         <div class="form-floating mb-3">
-          <input type="number" name="solution[score]" id="solution_score" <%= raw("value=#{@solution.score}") unless @solution.score.nil? %> form="solution_form" placeholder=' ' class="form-control">
+          <input type="number" name="solution[score]" id="solution_score" <%= raw("value=#{@solution.score}") unless @solution.score.blank? %> form="solution_form" placeholder=' ' class="form-control">
           <label for="solution_score">Nota</label>
         </div>
         <!-- Button trigger modal -->
@@ -84,11 +84,11 @@
           </div>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" name="solution[comment]" id="solution_comment" <%= raw("value='#{@solution.comment}'") unless @solution.comment.nil? %> form="solution_form" placeholder=' ' class="form-control">
+          <input type="text" name="solution[comment]" id="solution_comment" <%= raw("value='#{@solution.comment}'") unless @solution.comment.blank? %> form="solution_form" placeholder=' ' class="form-control">
           <label for="solution_comment">Comentario</label>
         </div>
         <%= form_for @solution, html: {id: "solution_form"} do |f| %>
-          <%= f.submit "#{@solution.score.nil? ? 'Calificar' : 'Editar Calificacion'}", class:'btn btn-primary'%>
+          <%= f.submit "#{@solution.score.blank? ? 'Calificar' : 'Editar Calificacion'}", class:'btn btn-primary'%>
         <% end %>
       </div>
     </div>

@@ -9,7 +9,7 @@ class SolutionsController < ApplicationController
 
   def create
     @activity = Activity.find(params[:activity_id])
-    @enrollment = @activity.unit.course.enrollments.find_by(user: current_user)
+    @enrollment = @activity.unit.course.enrollments.find_by(student: current_user)
     @solution = Solution.new(solution_params)
     @solution.activity = @activity
     @solution.enrollment = @enrollment

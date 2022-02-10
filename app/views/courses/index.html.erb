@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <p class="text-center fs-6"><%= ejercicios_pendientes = c.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{user: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+          <p class="text-center fs-6"><%= ejercicios_pendientes = c.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{student: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
         </div>
       </div>
     </a>

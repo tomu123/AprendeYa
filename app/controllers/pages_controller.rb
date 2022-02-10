@@ -6,9 +6,6 @@ class PagesController < ApplicationController
   end
 
   def academic_record
-    @enrollments = Enrollment.all
-    @solutions = Solution.all
     @courses = Course.all
-    @users = User.all
   end
 end
