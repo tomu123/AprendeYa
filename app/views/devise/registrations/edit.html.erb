@@ -18,7 +18,7 @@
       <%= f.input :last_name,
                   required: true %>
       <%= f.input :teacher %>
-      <label for="avatar">Choose an avatar</label>
+      <label for="avatar">Elige foto de perfil</label>
       <%= f.input :avatar ,input_html: { class: 'image',id: 'avatar' }, label: false%>
       <%= f.input :password,
                   hint: "leave it blank if you don't want to change it",
@@ -28,15 +28,15 @@
                   required: false,
                   input_html: { autocomplete: "new-password" } %>
       <%= f.input :current_password,
-                  hint: "we need your current password to confirm your changes",
+                  hint: "Necesitamos tu contraseña para guardar los cambios",
                   required: true,
                   input_html: { autocomplete: "current-password" } %>
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Update" ,class:'btn btn-primary'%>
+      <%= f.button :submit, "Actualizar" ,class:'btn btn-primary'%>
     </div>
   <% end %>
 
-  <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class:'btn btn-danger mt-3' %>
+  <%= link_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Estás seguro?" }, method: :delete,class:'btn btn-danger mt-3' %>
 </div>
