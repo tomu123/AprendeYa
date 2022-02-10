@@ -210,10 +210,10 @@
                           </tr>
                         <% else %>
                           <tr>
-                            <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
-                            <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
+                            <th scope="row"><%= link_to a , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
+                            <td><%= link_to a , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
                             <td <%= solution.nil? ? "class=\"text-primary\"" : '' %>>
-                              <%= link_to solution , style:"text-decoration: none;display:block;" do %>
+                              <%= link_to a , style:"text-decoration: none;display:block;" do %>
                                 <% if solution.score.nil? %>
                                   <i class="fas fa-check" style="color:green"></i> Sin Calificar
                                 <% else %>
