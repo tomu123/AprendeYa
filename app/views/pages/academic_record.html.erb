@@ -114,11 +114,27 @@
                           <!-- Button trigger modal -->
                           <% no2+=1 %>
                           <% solution = a.solutions.joins(:enrollment).find_by(enrollment: c.enrollments.find_by(student: am)) %>
-                            <tr>
-                              <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
-                              <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
-                              <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= solution&.score %><% end %></td>
-                            </tr>
+                            <% if solution.nil? %>
+                              <tr>
+                                <th scope="row"><%= no2 %></th>
+                                <td><%= a.title %></td>
+                                <td class="text-danger"><i class="fas fa-circle" style="color:red"></i> No Entregado </td>
+                              </tr>
+                            <% else %>
+                              <tr>
+                                <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
+                                <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
+                                <td <%= solution.nil? ? "class=\"text-primary\"" : '' %>>
+                                  <%= link_to solution , style:"text-decoration: none;display:block;" do %>
+                                    <%= if solution.nil? %>
+                                      <i class="fas fa-check" style="color:green"></i> Sin Calificar
+                                    <% else %>
+                                      <%= solution.score %>
+                                    <% end %>
+                                  <% end %>
+                                </td>
+                              </tr>
+                            <% end %>
                         <% end %>
                         <% if u.activities.activity_type_ejercicio.empty? %>
                           <div class="alert alert-warning">No hay ejercicios registrados</div>
@@ -186,11 +202,27 @@
                         <!-- Button trigger modal -->
                         <% no2+=1 %>
                         <% solution = a.solutions.joins(:enrollment).find_by(enrollment: c.enrollments.find_by(student: current_user)) %>
+                        <% if solution.nil? %>
                           <tr>
-                            <th scope="row"><%= link_to a , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
-                            <td><%= link_to a , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
-                            <td><%= link_to a , style:"text-decoration: none;display:block;" do %><%= solution&.score %><% end %></td>
+                            <th scope="row"><%= no2 %></th>
+                            <td><%= a.title %></td>
+                            <td class="text-danger"><i class="fas fa-circle" style="color:red"></i> No Entregado </td>
                           </tr>
+                        <% else %>
+                          <tr>
+                            <th scope="row"><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= no2 %><% end %></th>
+                            <td><%= link_to solution , style:"text-decoration: none;display:block;" do %><%= a.title %><% end %></td>
+                            <td <%= solution.nil? ? "class=\"text-primary\"" : '' %>>
+                              <%= link_to solution , style:"text-decoration: none;display:block;" do %>
+                                <%= if solution.nil? %>
+                                  <i class="fas fa-check" style="color:green"></i> Sin Calificar
+                                <% else %>
+                                  <%= solution.score %>
+                                <% end %>
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
                       <% end %>
                       <% if u.activities.activity_type_ejercicio.empty? %>
                         <div class="alert alert-warning">No hay ejercicios registrados</div>
