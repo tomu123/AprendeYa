@@ -1,10 +1,26 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Raleway&family=Roboto+Mono:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap");
 
 // Define fonts for body and headers
-$body-font: "Roboto Mono", "monospace";
-$headers-font: "Raleway", "sans-serif";
-
+$font-family-sans-serif: "Barlow", sans-serif;
+$headers-font: "Barlow", sans-serif;
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 700 !important;
+  line-height: 1.2;
+}
 // To use a font file (.woff) uncomment following lines
 // @font-face {
 //   font-family: "Font Name";

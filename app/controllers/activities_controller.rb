@@ -20,10 +20,6 @@ class ActivitiesController < ApplicationController
     @solution ||= Solution.new
   end
 
-  def index
-    @units = Unit.all
-  end
-
   def update
   end
 

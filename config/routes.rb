@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :activities, except: [:new, :create] do
+  resources :activities, except: [:new, :create,:index] do
     resources :solutions, only: :create
   end
   resources :solutions, only: [:index, :show, :update]
