@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <% if Enrollment.find_by(course: @course,student:current_user).blank? %>
+    <% if Enrollment.find_by(course: @course,student:current_user).blank? || !current_user.teacher%>
       <%= button_to 'Matriculate', course_enrollments_path(params[:id]),method: :post, class:"btn btn-danger my-3 fs-4" %>
     <% end %>
   </div>
