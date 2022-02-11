@@ -3,11 +3,13 @@
     <div class="activity-show-details " style="width:72%">
       <div class="card bg-warning w-100">
         <div class="card-header">
-          <% if @activity.activity_type_ejercicio? %>
-            <% if @done %>
-              <p><i class="fas fa-circle" style="color:red"></i> Pendiente</p>
-            <% else %>
-              <p><i class="fas fa-check" style="color:green"></i></i> Hecho</p>
+          <% unless current_user.teacher %>
+            <% if @activity.activity_type_ejercicio? %>
+              <% if @done %>
+                <p><i class="fas fa-circle" style="color:red"></i> Pendiente</p>
+              <% else %>
+                <p><i class="fas fa-check" style="color:green"></i></i> Hecho</p>
+              <% end %>
             <% end %>
           <% end %>
           <h2><%= @activity.title %></h2>
@@ -59,70 +61,72 @@
         <% end %>
       </div>
     </div>
-    <% if @activity.activity_type_ejercicio? %>
-      <% if @done %>
-        <div class="card border-primary " style="width:24%">
-          <div class="card-header bg-primary text-light">
-            <h3>Tu Trabajo</h3>
-          </div>
-          <div class="card-body text-dark">
-            <%= simple_form_for @solution, url: activity_solutions_path(params[:id]), html: {id: "solution_form"} ,defaults: { wrapper_html: { class: "form-floating mb-3" }} do |f| %>
-              <span>Seleccione su archivo</span>
-              <%= f.input :file ,input_html: { class: 'solution'}, label: false, direct_upload: true%>
-              <%= f.submit 'Subir Solucion', class:'btn btn-primary'%>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-        <% if @solution.score.blank? %>
-          <div class="card border-primary " style="width:24%" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" title="Sin Calificar" data-bs-custom-class="text-center" data-bs-content="Tu trabajo todavia no ha sido calificado, porfavor consulta con el profesor a cargo.">
-        <% else %>
+    <% unless current_user.teacher %>
+      <% if @activity.activity_type_ejercicio? %>
+        <% if @done %>
           <div class="card border-primary " style="width:24%">
-        <% end %>
-          <div class="card-header bg-primary text-light">
-            <h3>Tu Trabajo</h3>
-          </div>
-          <div class="card-body text-dark text-center">
-            <div class="form-floating mb-3">
-              <input type="number" name="solution[score]" id="solution_score" <%= raw("value=#{@solution.score}") unless @solution.score.blank? %> form="solution_form" placeholder=' ' class="form-control" disabled>
-              <label for="solution_score">Nota</label>
+            <div class="card-header bg-primary text-light">
+              <h3>Tu Trabajo</h3>
             </div>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#solution_file">
-              <%= cl_image_tag(@solution.file.key,:transformation=>[
-              {:width=>550, :crop=>"scale"},
-              {:fetch_format=>:auto}
-              ], class:'w-100 rounded') %>
-            </button>
+            <div class="card-body text-dark">
+              <%= simple_form_for @solution, url: activity_solutions_path(params[:id]), html: {id: "solution_form"} ,defaults: { wrapper_html: { class: "form-floating mb-3" }} do |f| %>
+                <span>Seleccione su archivo</span>
+                <%= f.input :file ,input_html: { class: 'solution'}, label: false, direct_upload: true%>
+                <%= f.submit 'Subir Solucion', class:'btn btn-primary'%>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <% if @solution.score.blank? %>
+            <div class="card border-primary " style="width:24%" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" title="Sin Calificar" data-bs-custom-class="text-center" data-bs-content="Tu trabajo todavia no ha sido calificado, porfavor consulta con el profesor a cargo.">
+          <% else %>
+            <div class="card border-primary " style="width:24%">
+          <% end %>
+            <div class="card-header bg-primary text-light">
+              <h3>Tu Trabajo</h3>
+            </div>
+            <div class="card-body text-dark text-center">
+              <div class="form-floating mb-3">
+                <input type="number" name="solution[score]" id="solution_score" <%= raw("value=#{@solution.score}") unless @solution.score.blank? %> form="solution_form" placeholder=' ' class="form-control" disabled>
+                <label for="solution_score">Nota</label>
+              </div>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#solution_file">
+                <%= cl_image_tag(@solution.file.key,:transformation=>[
+                {:width=>550, :crop=>"scale"},
+                {:fetch_format=>:auto}
+                ], class:'w-100 rounded') %>
+              </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="solution_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog" style="width:50vw;max-width:50vw">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <%= link_to  @solution.file, class:'btn btn-secondary mr-3' do%>
-                      <i class="fas fa-external-link-alt"></i>
-                    <% end %>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <iframe
-                    class="w-100"
-                    style="height:60vh;"
-                    src=<%= cloudinary_url(@solution.file.key, :format => "pdf") %>></iframe>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <!-- Modal -->
+              <div class="modal fade" id="solution_file" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width:50vw;max-width:50vw">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <%= link_to  @solution.file, class:'btn btn-secondary mr-3' do%>
+                        <i class="fas fa-external-link-alt"></i>
+                      <% end %>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <iframe
+                      class="w-100"
+                      style="height:60vh;"
+                      src=<%= cloudinary_url(@solution.file.key, :format => "pdf") %>></iframe>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="text" name="solution[comment]" id="solution_comment" <%= raw("value='#{@solution.comment}'") unless @solution.comment.blank? %> form="solution_form" placeholder=' ' class="form-control" disabled>
-              <label for="solution_comment">Comentario</label>
+              <div class="form-floating mb-3">
+                <input type="text" name="solution[comment]" id="solution_comment" <%= raw("value='#{@solution.comment}'") unless @solution.comment.blank? %> form="solution_form" placeholder=' ' class="form-control" disabled>
+                <label for="solution_comment">Comentario</label>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

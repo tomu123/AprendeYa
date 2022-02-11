@@ -3,6 +3,10 @@ class ActivitiesController < ApplicationController
   end
 
   def create
+    activity = Activity.new(activity_params)
+    activity.unit = Unit.find(params[:unit_id])
+    activity.save
+    redirect_to activity_path(activity)
   end
 
   def get_by_type
@@ -27,5 +31,11 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def activity_params
+    params.require(:activity).permit(:title, :description, :file, :activity_type)
   end
 end
