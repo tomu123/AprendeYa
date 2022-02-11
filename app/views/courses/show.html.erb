@@ -8,7 +8,7 @@
 
     <div class="container">
       <% @course.units.each do |u| %>
-        <% unless Enrollment.find_by(course: @course,student:current_user).blank? && current_user.teacher %>
+        <% unless Enrollment.find_by(course: @course,student:current_user).blank? && !current_user.teacher %>
           <a href="<%= url_for(u) %>" style="text-decoration: none;color: black">
         <% end %>
             <div class="unit card my-3 bg-warning">
@@ -24,10 +24,12 @@
                 </div>
               </div>
               <div class="card-footer">
-                <p class="text-center fs-6"><%= ejercicios_pendientes = u.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{student: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+                <% unless current_user.teacher %>
+                  <p class="text-center fs-6"><%= ejercicios_pendientes = u.activities.activity_type_ejercicio.joins("LEFT OUTER JOIN (#{Solution.joins(:enrollment).where(enrollment:{student: current_user}).to_sql}) AS result  ON activities.id = result.activity_id").where("result.id IS NULL").count %> ejercicio<%= ejercicios_pendientes==1 ? '' : 's' %> por resolver</p>
+                <% end %>
               </div>
             </div>
-        <% if Enrollment.find_by(course: @course,student:current_user).blank? %>
+        <% if Enrollment.find_by(course: @course,student:current_user).blank? && !current_user.teacher %>
           </a>
         <% end %>
       <% end %>
