@@ -8,7 +8,7 @@
 
     <div class="container">
       <% @course.units.each do |u| %>
-        <% unless Enrollment.find_by(course: @course,student:current_user).blank? %>
+        <% unless Enrollment.find_by(course: @course,student:current_user).blank? && current_user.teacher %>
           <a href="<%= url_for(u) %>" style="text-decoration: none;color: black">
         <% end %>
             <div class="unit card my-3 bg-warning">
