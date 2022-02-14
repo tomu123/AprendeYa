@@ -5,4 +5,6 @@ class Activity < ApplicationRecord
   has_many :solutions, dependent: :destroy
   validates :title, presence: true
   validates :description, presence: true
+  validates :file, presence: true
+  validates :activity_type, presence: true
 end

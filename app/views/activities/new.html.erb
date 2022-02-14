@@ -1,7 +1,7 @@
 <div class="container pt-3">
   <h2 class="mt-3 mb-5">Crear Actividad</h2>
 
-  <%= simple_form_for( Activity.new(), url: unit_activities_path(params[:unit_id]) ,wrapper: :floating_labels_form,
+  <%= simple_form_for( @activity , url: unit_activities_path(params[:unit_id]) ,wrapper: :floating_labels_form,
     wrapper_mappings: {
       select:        :floating_labels_select
     },defaults: { wrapper_html: { class: "form-floating mb-4" },placeholder:' ' }) do |f| %>
@@ -14,7 +14,7 @@
       <%= f.input :description,
                   required: true %>
       <label for="activity_type" class="my-3">Elige el tipo de actividad </label>
-      <%= f.input :activity_type, collection: ['clase','ejercicio','recurso'], input_html: { id: 'activity_type' } , label: false %>
+      <%= f.input :activity_type , collection: ['clase','ejercicio','recurso'], input_html: { id: 'activity_type' } , label: false , required:true %>
       <label for="file_activity" class="my-3">Subir Material de la Actividad </label>
       <%= f.input :file , label: false%>
     </div>

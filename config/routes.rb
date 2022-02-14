@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
   resources :enrollments, only: :index
   resources :units, only: [:show, :edit, :update, :destroy] do
-    resources :activities, only: [:new, :create]
+    resources :activities, only: [:new, :create, :index]
     resources :activities, only: [] do
       collection do
         get ':type', to: 'activities#get_by_type', as: :get_by_type
